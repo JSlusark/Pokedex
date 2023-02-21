@@ -15,12 +15,12 @@ for (let index = 0; index < pokemonList.length; index++) {
 for (let index = 0; index < pokemonList.length; index++) {
   if (pokemonList[index].height > 1) {
     document.write(
-      `Pokemon: ${pokemonList[index].name} ${pokemonList[index].height}`
+      `<li> ${pokemonList[index].name} ${pokemonList[index].height} `
     );
-    document.write(`- Wow! That's big!  <br/>`);
+    document.write(`<span class="exclamation">- Wow! That's big!</span></li>`);
   } else {
     document.write(
-      `Pokemon: ${pokemonList[index].name} ${pokemonList[index].height} <br/>`
+      ` <li> ${pokemonList[index].name} ${pokemonList[index].height}</li> `
     );
   }
 }
