@@ -4,23 +4,12 @@ let pokemonList = [
   { name: `Squirtle`, type: [`water`], height: 0.5 },
 ];
 
-for (let index = 0; index < pokemonList.length; index++) {
-  console.log(
-    `Pokemon: ${pokemonList[index].name} ${pokemonList[index].height}.`
-  );
-}
-
-//exercise here
-
-for (let index = 0; index < pokemonList.length; index++) {
-  if (pokemonList[index].height > 1) {
-    document.write(
-      `<li> ${pokemonList[index].name} ${pokemonList[index].height} `
-    );
+function writePokemon(pokemon) {
+  if (pokemon.height > 1) {
+    document.write(`<li> ${pokemon.name} ${pokemon.height} `);
     document.write(`<span class="exclamation">- Wow! That's big!</span></li>`);
   } else {
-    document.write(
-      ` <li> ${pokemonList[index].name} ${pokemonList[index].height}</li> `
-    );
+    document.write(`<li> ${pokemon.name} ${pokemon.height}`);
   }
 }
+pokemonList.forEach(writePokemon);
