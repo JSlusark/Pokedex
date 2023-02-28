@@ -61,7 +61,7 @@ body {
   /* background-color: #ffffff; */
   width: 315px;
   height: 110px;
-  margin: 209px 43px;
+  margin: 215px 43px;
   overflow: scroll;
   color: rgb(23 255 0);
 }
@@ -69,6 +69,18 @@ body {
 .right-container-list {
   font-size: 17px;
   line-height: 1.8;
+  list-style-type: none;
+}
+.listed-pokemon {
+  border: solid 3px #1aff02;
+  border-radius: 5px;
+  color: #1aff02;
+  background-color: #403d4a;
+}
+
+.listed-pokemon:hover {
+  background-color: #1aff02;
+  color: #403d4a;
 }
 
 .exclamation {
