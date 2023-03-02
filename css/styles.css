@@ -33,6 +33,10 @@ body {
   text-align: center;
 }
 
+.pokemonDescriptionName:first-letter {
+  text-transform: uppercase;
+}
+
 .pokemon-portrait {
   display: block;
   width: 100px;
@@ -76,6 +80,9 @@ body {
   border-radius: 5px;
   color: #1aff02;
   background-color: #403d4a;
+}
+.listed-pokemon:first-letter {
+  text-transform: uppercase;
 }
 
 .listed-pokemon:hover {

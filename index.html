@@ -21,15 +21,23 @@
         <section class="left-side">
           <!--Start of Pokemon data-->
           <section class="left-container">
-            <h3>Bulbasaur</h3>
+            <h3 class="pokemonDescriptionName">
+              <!-- Pokemon Name  -->
+            </h3>
             <img
-              src="https://via.placeholder.com/150"
+              src="img/blank.png"
               alt="pokemon portrait"
               class="pokemon-portrait"
             />
             <p class="left-description">
-              BulbasaurStats There is a plant seed on its back right from the
-              day this Pokémon is born. The seed slowly grows larger.
+              <span class="pokemon-type1">
+                <!-- Type added here  -->
+              </span>
+              <span class="pokemon-height">
+                <!-- Height added here  -->
+              </span>
+              <br />
+              <!-- Description goes here -->
             </p>
           </section>
           <!--End of Pokemon data-->
@@ -62,6 +70,8 @@
         </section>
       </section>
     </main>
-    <script src="script/script.js"></script>
+    <script src="js/promise-polyfill.js"></script>
+    <script src="js/fetch-polyfill.js"></script>
+    <script src="js/scripts.js"></script>
   </body>
 </html>
