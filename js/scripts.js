@@ -57,35 +57,85 @@ let pokemonRepository = (function () {
     listItem.appendChild(button);
     pokemonNames.appendChild(listItem);
     button.innerText = pokemon.name;
+
+    //When pokemon button is clicked, details are shown as a modal
     button.addEventListener("click", function (event) {
-      showDetails(pokemon);
+      showDetails(pokemon); // show details should be show modal IDIOTS!!!
     });
   }
 
   function showDetails(item) {
-    pokemonRepository.loadDetails(item).then(function () {
+    pokemonRepository.loadDetails(item).then(function (title, text) {
+      //added modal creation here inside here
+      let modalContainer = document.querySelector("#modal-container");
+
+      // Clear all existing modal content,create new element and add new class
+      modalContainer.innerHTML = "";
+      let modal = document.createElement("div");
+      modal.classList.add("modal");
+
+      // Add the new modal content
+      //button
+      let closeDiv = document.createElement("div");
+      let closeButtonElement = document.createElement("button");
+      closeButtonElement.classList.add("modal-close");
+      closeButtonElement.innerText = "X";
+      closeButtonElement.addEventListener("click", hideModal);
+
+      //Creates content
       console.log(item);
       console.log(item.name);
       console.log(item.sprite);
       console.log(item.type1);
       console.log(item.height);
-      //Adds pokemon name to DOM element
-      let pokemonDescriptionName = document.querySelector(
-        ".pokemonDescriptionName"
-      );
-      pokemonDescriptionName.innerText = item.name;
+      // Shows name of pokemon
+      let pokemonTitle = document.createElement("h1");
+      pokemonTitle.innerText = item.name;
       //Adds pokemon sprite to DOM element
-      let pokemonSprite = document.querySelector(".pokemon-portrait");
+      let pokemonSprite = document.createElement("img");
       pokemonSprite.src = item.sprite;
       //Adds pokemon type to DOM element
-      let pokemonType1 = document.querySelector(".pokemon-type1");
-      pokemonType1.innerText = `Type:${item.type1}`;
+      let pokemonType1 = document.createElement("p");
+      pokemonType1.innerText = `Type: ${item.type1}`;
       //Adds pokemon height to DOM element
-      let pokemonHeight = document.querySelector(".pokemon-height");
+      let pokemonHeight = document.createElement("p");
       console.log(pokemonHeight.innerText);
-      pokemonHeight.innerText = `Height:${item.height / 10}m`;
+      pokemonHeight.innerText = `Height: ${item.height / 10}m`;
+
+      // adds text to the modelContainer element
+      modalContainer.appendChild(modal);
+      modal.appendChild(closeDiv);
+      closeDiv.appendChild(closeButtonElement);
+      modal.appendChild(pokemonTitle);
+      modal.appendChild(pokemonSprite);
+      modal.appendChild(pokemonType1);
+      modal.appendChild(pokemonHeight);
+      modalContainer.classList.add("is-visible");
+
+      //calls hide modal
+      modalContainer.addEventListener("click", (e) => {
+        // Since this is also triggered when clicking INSIDE the modal
+        // We only want to close if the user clicks directly on the overlay
+        let target = e.target;
+        if (target === modalContainer) {
+          hideModal();
+        }
+      });
     });
   }
+
+  //function
+  function hideModal() {
+    let modalContainer = document.querySelector("#modal-container");
+    modalContainer.classList.remove("is-visible");
+  }
+
+  window.addEventListener("keydown", (e) => {
+    let modalContainer = document.querySelector("#modal-container");
+    if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
+      hideModal();
+    }
+  });
 
   return {
     getAll,
@@ -96,6 +146,7 @@ let pokemonRepository = (function () {
   };
 })();
 
+//loads list to the pokedex list
 pokemonRepository.loadList().then(function () {
   // Now the data is loaded
   pokemonRepository.getAll().forEach(function (pokemon) {
