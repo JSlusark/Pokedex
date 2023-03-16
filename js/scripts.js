@@ -50,91 +50,80 @@ let pokemonRepository = (function () {
   }
 
   function addListItem(pokemon) {
-    let pokemonNames = document.querySelector(".right-container-list");
-    let listItem = document.createElement("li");
-    let button = document.createElement("button");
+    //This is the UL
+    let pokemonContainer = document.querySelector(
+      ".right-container-child1-list"
+    );
+    //creates li elements inside the UL so that style can work as organised
+    let button = document.createElement("li");
     button.classList.add("listed-pokemon");
-    listItem.appendChild(button);
-    pokemonNames.appendChild(listItem);
-    button.innerText = pokemon.name;
+    button.setAttribute("data-bs-toggle", "modal");
+    button.setAttribute("data-bs-target", "#exampleModal");
+    let buttonPart1 = document.createElement("span");
+    buttonPart1.classList.add("arrow-blank");
+    let buttonPart2 = document.createElement("span");
+    buttonPart2.classList.add("pokemon-name");
+    button.appendChild(buttonPart1);
+    button.appendChild(buttonPart2);
+    pokemonContainer.appendChild(button);
+    buttonPart1.innerHTML = `► `;
+    buttonPart2.innerText = pokemon.name;
 
-    //When pokemon button is clicked, details are shown as a modal
+    //When pokemon li element is clicked, details are shown as a modal
     button.addEventListener("click", function (event) {
-      showDetails(pokemon); // show details should be show modal IDIOTS!!!
+      console.log(button);
+
+      // let highlightedPokemon = document.querySelector(
+      //   ".listed-pokemon-selected"
+      // );
+      // console.log(highlightedPokemon);
+      button.classList.add("listed-pokemon-selected");
+      showDetails(pokemon); // show details of pkmn
     });
   }
 
   function showDetails(item) {
     pokemonRepository.loadDetails(item).then(function (title, text) {
-      //added modal creation here inside here
-      let modalContainer = document.querySelector("#modal-container");
-
-      // Clear all existing modal content,create new element and add new class
-      modalContainer.innerHTML = "";
-      let modal = document.createElement("div");
-      modal.classList.add("modal");
-
-      // Add the new modal content
-      //button
-      let closeDiv = document.createElement("div");
-      let closeButtonElement = document.createElement("button");
-      closeButtonElement.classList.add("modal-close");
-      closeButtonElement.innerText = "X";
-      closeButtonElement.addEventListener("click", hideModal);
-
-      //Creates content
-      console.log(item);
-      console.log(item.name);
-      console.log(item.sprite);
-      console.log(item.type1);
-      console.log(item.height);
-      // Shows name of pokemon
-      let pokemonTitle = document.createElement("h1");
-      pokemonTitle.innerText = item.name;
-      //Adds pokemon sprite to DOM element
-      let pokemonSprite = document.createElement("img");
+      let modalDescription = document.querySelector(".modal-body");
+      let modalTitle = document.querySelector("#exampleModalLabel");
+      modalTitle.innerHTML = item.name;
+      let pokemonSprite = document.querySelector(".pokemon-pic");
       pokemonSprite.src = item.sprite;
-      //Adds pokemon type to DOM element
-      let pokemonType1 = document.createElement("p");
+      let pokemonType1 = document.querySelector(".type1");
       pokemonType1.innerText = `Type: ${item.type1}`;
-      //Adds pokemon height to DOM element
-      let pokemonHeight = document.createElement("p");
-      console.log(pokemonHeight.innerText);
+      let pokemonHeight = document.querySelector(".height");
       pokemonHeight.innerText = `Height: ${item.height / 10}m`;
 
-      // adds text to the modelContainer element
-      modalContainer.appendChild(modal);
-      modal.appendChild(closeDiv);
-      closeDiv.appendChild(closeButtonElement);
-      modal.appendChild(pokemonTitle);
-      modal.appendChild(pokemonSprite);
-      modal.appendChild(pokemonType1);
-      modal.appendChild(pokemonHeight);
-      modalContainer.classList.add("is-visible");
+      //IF YOU CLICK BACKDROP HIGHLIGHT GOES AWAY
+      let backdrop = document.querySelector(".modal-backdrop");
+      // backdrop.remove();
 
-      //calls hide modal
-      modalContainer.addEventListener("click", (e) => {
-        // Since this is also triggered when clicking INSIDE the modal
-        // We only want to close if the user clicks directly on the overlay
-        let target = e.target;
-        if (target === modalContainer) {
-          hideModal();
-        }
+      backdrop.addEventListener("click", () => {
+        let button = document.querySelector(".listed-pokemon-selected");
+        button.classList.remove("listed-pokemon-selected");
+        let modalEl = document.getElementById("exampleModal");
+        let modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
       });
     });
   }
 
-  //function
-  function hideModal() {
-    let modalContainer = document.querySelector("#modal-container");
-    modalContainer.classList.remove("is-visible");
-  }
-
   window.addEventListener("keydown", (e) => {
-    let modalContainer = document.querySelector("#modal-container");
-    if (e.key === "Escape" && modalContainer.classList.contains("is-visible")) {
-      hideModal();
+    let modalContent = document.querySelector(".modal-content");
+
+    if (e.key === "Escape") {
+      let button = document.querySelector(".listed-pokemon-selected");
+      button.classList.remove("listed-pokemon-selected");
+      console.log(button);
+      console.log(modalContent);
     }
+  });
+
+  let button = document.querySelector(".btn-close"); // assuming there is a <button> element on the page
+
+  button.addEventListener("click", function () {
+    let button = document.querySelector(".listed-pokemon-selected");
+    button.classList.remove("listed-pokemon-selected");
   });
 
   return {
