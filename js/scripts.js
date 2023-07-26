@@ -1,14 +1,14 @@
 let pokemonRepository = (function () {
   let pokemonList = [];
-  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
 
-  function loadList() {
+  function loadList(apiUrl) {
     return fetch(apiUrl)
       .then(function (response) {
         return response.json();
       })
       .then(function (json) {
         console.log(json.results[0]);
+        console.log(json.prev, json.next);
         json.results.forEach(function (item) {
           let pokemon = {
             name: item.name,
@@ -47,6 +47,10 @@ let pokemonRepository = (function () {
 
   function getAll() {
     return pokemonList;
+  }
+
+  function removeAll() {
+    pokemonList.length = 0;
   }
 
   function addListItem(pokemon) {
@@ -128,6 +132,7 @@ let pokemonRepository = (function () {
 
   return {
     getAll,
+    removeAll,
     add,
     addListItem,
     loadList,
@@ -135,8 +140,9 @@ let pokemonRepository = (function () {
   };
 })();
 
+let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=20";
 //loads list to the pokedex list
-pokemonRepository.loadList().then(function () {
+pokemonRepository.loadList(apiUrl).then(function () {
   // Now the data is loaded
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
