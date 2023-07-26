@@ -218,7 +218,7 @@ body {
     height: 336px;
   }
   body {
-    background-color: #ff2a63;
+    /* background-color: #ff2a63; */
   }
   .pokemon-name,
   .arrow-blank {
@@ -235,7 +235,7 @@ body {
     height: 427px;
   }
   body {
-    background-color: #e0f807;
+    /* background-color: #e0f807; */
   }
   .pokemon-name,
   .arrow-blank {
@@ -251,7 +251,7 @@ body {
     height: 605px;
   }
   body {
-    background-color: #5ba0db;
+    /* background-color: #5ba0db; */
   }
   .pokemon-name .arrow-blank {
     font-size: 90%;
@@ -267,7 +267,7 @@ body {
     height: 714px;
   }
   body {
-    background-color: #1dfb5c;
+    /* background-color: #1dfb5c; */
   }
 
   .pokemon-name,
